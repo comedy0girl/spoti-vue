@@ -59,8 +59,10 @@ import Axios from 'axios'
 export default {
   name: 'app',
   data () {
+    // Todo: ClientID hardcoded in source code is not great practice, usually you would want to include config/passwords like this in '.env' files and exclude from version control.
+    // But this will work for purposes of getting this project working
     return {
-      clientId: '',
+      clientId: '008b5c2685ad40bead402e6af0685a88',
       accessToken: this.getParameterByName('access_token'),
       config: [],
       artist: '',
@@ -99,10 +101,16 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
   .container {
     text-align: center;
     font-size: 1.5em;
+    .child-div {
+      background: red;
+    }
+    &--styled {
+      color: black;
+    }
   }
   input.input {
       padding: 1em;
