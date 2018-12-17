@@ -23,8 +23,11 @@
               </div>
             </nav>
           </div>
+
+
+
           <div class="column">
-            <nav class="panel">
+           
               <p class="panel-heading">
                 Search Artists
               </p>
@@ -34,7 +37,19 @@
                 </p>
               </div>
 
-              <div class="track-listing">
+
+               <div class="artist-listing">
+                <a v-for="artist in artists" class="panel-block is-active">
+                  <li><a href="#">{{ artist.name }}</a>
+                      <img v-if="artist.images.length" :src="artist.images[0].url" :alt="artist.name">
+                      <p v-else>No image available</p>
+                  </li>
+                </a>
+              </div>
+
+
+
+              <!-- <div class="track-listing">
               <a v-for="track in tracks" class="panel-block is-active">
                   {{ track.name }}
                   {{ track.artists[0].name }}
@@ -44,9 +59,13 @@
                     Your browser does not support the <code>audio</code> element.
                   </audio>
               </a>
-            </div>
-            </nav>
+            </div> -->
+        
           </div>
+
+
+
+
         </div>  
       </div>
     </section>
@@ -65,7 +84,7 @@ export default {
       clientId: '008b5c2685ad40bead402e6af0685a88',
       accessToken: this.getParameterByName('access_token'),
       config: [],
-      artist: '',
+      artists: [],
       data: [],
       tracks: []
     }
@@ -86,10 +105,12 @@ export default {
     getArtist: function(){
       this.data = '';
       this.tracks = '';
+      this.artists = '';
       this.config = {headers: {'Authorization': 'Bearer ' + this.accessToken}};
       Axios.get('https://api.spotify.com/v1/search?q=' + this.artist + '&type=track,artist&market=US', this.config)
         .then(response => {
           this.data = response.data;
+          this.artists = response.data.artists.items;
           this.tracks = response.data.tracks.items;
         })
         .catch(e => {
