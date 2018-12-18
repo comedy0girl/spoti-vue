@@ -39,15 +39,18 @@
 
 
                <div class="artist-listing">
-                <a v-for="artist in artists" class="panel-block is-active">
-                  <li><a href="#">{{ artist.name }}</a>
+                <a v-for="artist in artists" class="single-artist">
+                  <li>
                       <img v-if="artist.images.length" :src="artist.images[0].url" :alt="artist.name">
-                      <p v-else>No image available</p>
+                      <div v-else><img src="http://placekitten.com/200/300"></div>
+                      <div class="row artist-title"><a href="#">{{ artist.name }}</a></div>
+                      <div class="artist-details">
+                        <li v-if="artist.genres.length">GENRES: {{ artist.genres[0] }}</li>
+                        <li>FOLLOWERS: {{ artist.followers.total }}</li>
+                      </div>
                   </li>
                 </a>
               </div>
-
-
 
               <!-- <div class="track-listing">
               <a v-for="track in tracks" class="panel-block is-active">
@@ -63,6 +66,11 @@
         
           </div>
 
+          <div class="row">
+
+            <artist></artist>
+          </div>
+
 
 
 
@@ -74,9 +82,14 @@
 
 <script>
 import Axios from 'axios'
+import Artist from './components/Artist'
+
 
 export default {
   name: 'app',
+  components: {
+    Artist
+  },  
   data () {
     // Todo: ClientID hardcoded in source code is not great practice, usually you would want to include config/passwords like this in '.env' files and exclude from version control.
     // But this will work for purposes of getting this project working
@@ -156,4 +169,37 @@ export default {
       float: left;
       padding: 1em 0;
   }
+
+  .artist-listing {
+  width: 95%;
+  margin: 0 auto;
+  .single-artist {
+    padding: 0.2em;
+    float: left;
+    height: 300px;
+    width: 200px;
+    li {
+    list-style: none;
+  }
+  .artist-details {
+  font-size:0.7em;
+  }
+      img {
+      height: 200px;
+      width: 200px;
+
+    }
+    .artist-title {
+      a {
+      text-decoration: none;
+      text-transform: uppercase;
+      color: grey;
+      &:hover {
+      color: purple;
+
+    }
+    }
+  }
+  }
+}
 </style>

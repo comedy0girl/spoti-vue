@@ -1,10 +1,11 @@
 <template lang="html">
   <li>
     <div class="artist">
-      <p>{{ artist.name }}</p>
-      <img v-if="artist.images.length" :src="artist.images[0].url" :alt="artist.name">
-      <p v-else></p>
-      <small> {{ artist.genres | dash-list }}</small>
+       <!--  <p>{{ artist.name }}</p>
+        <img v-if="artist.images.length" :src="artist.images[0].url" :alt="artist.name">
+        <p v-else></p>
+        <small> {{ artist.genres | dash-list }}</small> -->
+        <p>This is where the artists go</p>
     </div>
   </li>
 </template>
